@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1주차 과제 김동한(8기)</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    
+    
+    <style>
+        
+        *{
+            font-family: 'Nanum Gothic Coding', monospace;
+        }
+        
+        p{
+            text-align: center;
+        }
+        img{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        .form-group{
+            text-align: center;
+        }
+        
+
+
+    </style>
+    <script>
+        function order_alert()
+        {
+            alert("주문이 완료되었습니다.");
+        }
+    </script>
+</head>
+
+<body>
+<div class="product_image">
+    <p><a href="https://www.youtube.com"><img src="https://cdn.neow.in/news/images/uploaded/2020/03/1584987746_youtube_premium_story.jpg" width="30%" length="30%"  alt="picture of product"></a>
+    </p></div>
+<div class="presentation"></div>
+   <h1>유튜브 프리미엄</h1>
+   <p>광고없는 쾌적한 유튜브 시청, 유튜브 뮤직을 통한 음악 감상까지 
+       이 모든 것을 유튜브 프리미엄으로 즐겨보세요.</p>
+</div>
+
+<div class="order_part">
+  <p>합리적인 가격 8,690원/월(VAT포함)</p>
+
+  <form>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">유튜브 계정</label>
+      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlInput2">전화번호</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="'-'없이 작성">
+      </div>
+
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">기간</label>
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>1개월(무료체험)</option>
+        <option>2개월</option>
+        <option>3개월</option>
+        <option>6개월</option>
+        <option>1년</option>
+      </select>
+    </div>
+    
+   
+  </form>
+  <p>
+  <button onclick="order_alert()" type="button" class="btn btn-primary">주문하기</button>
+  </p>
+</div>
+
+    
+</body>
+</html>
