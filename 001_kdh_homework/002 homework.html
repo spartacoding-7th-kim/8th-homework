@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang = "en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> buildi </title>
+
+    <!-- Bootstrap css -->
+    <link rel = "stylesheet" href ="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- rel css -->
+    <link rel = "stylesheet" href = "css/001.CSS">
+
+    <link href = "https:///fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+<style  type="text/css">
+* {
+    font-family: 'Stylish', sans-serif;
+}
+
+    .so1{
+        font-size: 18px;
+    }
+
+    .so2{
+        font-size: 15px;
+        
+    }
+    
+
+</style>
+</head>
+
+<script>
+      function hey() {
+            alert('주문이 완료되었습니다!');
+        }
+    function get_sum(n) {
+    let sum = 0
+    for (let i = 0; i < n; i++) {
+        sum += i;        
+    }
+    return sum
+}
+
+</script>
+
+<body>
+    <div class = div1>
+        <div>
+        <img class = "img1" src = "source/image/11111.jpg">
+        <h1 class= "main">모형을 팝니다 <span class = "so1">가격 :1,000,000원/개</span></h1>
+        <h2 class = "so2">이 상품으로 말할 것 같으면 블블라블라 블라블라블라블라블라블라블라블라블라블라 블라블라블라블라블라블라블라블라블라블라블라블라블라블라 블라블라블라블라블라블라블라블라블라블라블라블라</h2>
+        </div>
+               
+        <div class = div2>  
+            <div>  
+                <span class="badge badge-light">주문자 이름</span><input type="text">
+            </div> 
+            <div>
+                <span class="badge badge-light">수량</span>
+                
+                <select class="select1"  style="color: black; font-size: 18px;">
+
+                    <option selected>수량을 선택하세요</option>
+  
+                    <option value="1">1개</option>
+  
+                    <option value="2">2개</option>
+  
+                    <option value="3">3개</option>
+  
+                  </select>
+                  
+            </div>
+            <div>
+                <span class="badge badge-light">주소</span><input type="text">
+            </div>
+            <div>
+                <span class="badge badge-light">전화번호</span><input type="text">
+            </div>
+        </div>    
+        
+            <p>
+                <button onclick="hey()" type="button" class="btn btn-primary">주문하기</button>
+                
+            </p>
+        
+    </div>
+</body>
+
+</html>
