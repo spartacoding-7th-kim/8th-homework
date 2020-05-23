@@ -22,11 +22,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>8기 1주차 과제 | 노향정</title>
 
-    <style>
+    <style type="text/css">
        .wrap {
            width: 500px;
            margin: 50px auto;
@@ -67,21 +67,82 @@
            font-size: 18px;
            font-weight: medium;
            margin-top: 20px;
+           margin-bottom: 5px;
+       }
+
+       .changerate {
+           font-size: 12px;
            margin-bottom: 20px;
+           color: grey;
+       }
+
+       .btn-order {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+
+       .input-container {
+           display: flex;
+           align-items:center;
+           font-size: 12px;
+           margin-bottom: 20px;
+       }
+       .input-container > input {
+           width: 400px;
+           margin-left: auto;
+           padding: 6px 12px;
+           border: 1px solid lightgrey;
+       }
+
+       .input-container > select {
+           width: 400px;
+           margin-left: auto;
+           border: 1px solid lightgrey;
+           padding: 6px 12px;
+           font-family: inherit;
+           border-radius: 0px;
+           background: url('arrow-down.jpeg') no-repeat 99% 50%;
+           -webkit-appearance: none;
+           -moz-appearance: none;
+           appearance: none;
        }
 
     </style>
 
     <script>
         function ordercheck(){
-        	alert('주문이 완료되었습니다.');
+            if($('#order-name').val() == false) {
+                alert('이름을 입력해 주세요.');
+            } else if($('#order-quantity').val() == '수량을 선택하세요') {
+                alert('수량을 선택해 주세요.');
+            } else if($('#order-address').val() == 0) {
+                alert('주소를 입력해 주세요.');
+            } else if($('#order-phone').val() == 0) {
+                alert('전화번호를 입력해 주세요.');
+            } else {
+                alert('주문이 완료되었습니다.');
+            }
         }
+
+        function realtimeRate(){
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let dollarRate = response[1]['rate'];
+                    $("#dollar-won").text(dollarRate);
+                }
+            })
+        }
+    
     </script>
 
 </head>
 
 
-<body>
+<body onload="realtimeRate()">
 
     <div class="wrap">
 
@@ -103,47 +164,40 @@
         <!-- 주문하기 -->
         <div class="product-order">
             <h2>주문하기</h2>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default" style="color:black; font-size: 12px;">주문자 성함</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" style="font-size: 12px;">
+            <div class="changerate">
+                (환율: <span id="dollar-won">n</span>원 / $1)
             </div>
 
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01" style="color:black; font-size: 12px;">수량</label>
-                </div>
-                <select class="custom-select" id="inputGroupSelect01" style="color: grey; font-size: 12px;">
-                  <option selected>수량을 선택하세요</option>
-                  <option value="1">1개</option>
-                  <option value="2">2개</option>
-                  <option value="3">3개</option>
+            <div class="input-container">
+                <span>✔︎ 주문자 이름</span>
+                <input id="order-name" type="text">
+            </div>
+    
+            <div class="input-container">
+                <span>✔︎ 수량</span>
+                <select id="order-quantity">
+                    <option selected>수량을 선택하세요</option>
+                    <option value="1">1개</option>
+                    <option value="2">2개</option>
+                    <option value="3">3개</option>
                 </select>
             </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default" style="color:black; font-size: 12px;">주소</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" style="font-size: 12px;">
+    
+            <div class="input-container">
+                <span>✔︎ 주소</span>
+                <input id="order-address" type="text">
             </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default" style="color:black; font-size: 12px;">전화번호</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" style="font-size: 12px;">
+    
+            <div class="input-container">
+                <span>✔︎ 전화번호</span>
+                <input id="order-phone" type="text">
             </div>
-        </div>
-
-        <center>
-            <button onclick="ordercheck()" type="button" class="btn btn-warning btn-block" style="font-size: 14px">주문하기</button>
-        </center>
-
-
+            
+            <div class="btn-order">
+                <button type="button" onclick="ordercheck()" class="btn btn-primary btn-warning btn-lg" style="font-size:14px">주문하기</button>
+            </div>
     </div>
+    
 
 </body>
 </html>
