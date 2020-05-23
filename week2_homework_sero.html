@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <title>스파르타코딩클럽 | 일요반 1주차 홈웤</title>
+
+  <!-- 구글폰트 -->
+  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet">
+  <!-- style -->
+  <style type="text/css">
+    * {
+      font-family: 'Stylish', sans-serif;
+    }
+
+    .wrap {
+      margin: 10px auto;
+      width: 500px;
+    }
+
+    .mystyle {
+      background-position: center;
+      background-size: cover;
+    }
+
+
+    .post-box {
+      width: 500px;
+      height: 300px;
+      margin: 10px auto;
+      padding: 10px;
+      border: white;
+      border-radius: 5px;
+      background-image: url('https://byline.network/wp-content/uploads/2019/11/tesla-cybertruck-1-1280x720.png');
+      background-position: center;
+      background-size: cover;
+    }
+
+    h1,
+    h3,
+    h5 {
+      display: inline;
+    }
+
+    .emphasize {
+      /* margin-left: 140px; */
+      font-family: 'Nanum Myeongjo', serif;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .center {
+      text-align: center;
+
+    }
+    .temp{
+      margin: 10px;
+    }
+  </style>
+  <script>
+
+    function list() {
+      let test = $('#name_list').val();
+      let hogang = '<li>' + test + '</li>'
+      $('#hogangs').append(hogang);
+    }
+    $.ajax({
+      type: "GET",
+      url:  "https://api.exchangeratesapi.io/latest?base=USD",
+      data: {},
+      success:function (response) { 
+        let currency_rate = response['rates']['KRW'];
+        let currency_rate2 = currency_rate.toFixed(2);
+        let temp_html = `<li> 1$= ${currency_rate2} 원</li>`;
+       $('#currency').append(temp_html);
+
+       let total_won = currency_rate2 * 10000;
+       let temp_html2 = `<li> 오늘 계약시: ${total_won} 원</li>`;
+       $('#currency').append(temp_html2);
+       }
+    })
+
+  </script>
+
+</head>
+
+<body>
+  <div class= temp id=hogangs>
+    <h4>호갱 LIST</h4>
+  </div>
+  <div class="wrap">
+    <div class="post-box"></div>
+    <div>
+      <h1>Tesla Cyber Truck</h1>
+      <h3>계약금:$10000</h2>
+        <p class="emphasize"> 일론 머스크의 사이버 트럭!
+          만달러로 지금 당장 예약하세요</p>
+    </div>
+    <div id=currency>
+      환율
+    </div>
+    <div>
+      <h1>주문하기</h1>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend" >
+          <span class="input-group-text" id="basic-addon1">주문자명</span>
+        </div>
+        <input type="text" class="form-control" placeholder="호갱님 성함" aria-label="Username"
+          aria-describedby="basic-addon1" id=name_list>>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Options</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected>--------Model을 선택하세요----------</option>
+          <option value="1">Basic</option>
+          <option value="2">Range Extension</option>
+          <option value="3">Turbo</option>
+        </select>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">주소</span>
+        </div>
+        <input type="text" class="form-control" placeholder="호갱님 주소" aria-label="Username"
+          aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">전화번호</span>
+        </div>
+        <input type="text" class="form-control" placeholder="호갱님 전화번호" aria-label="Username"
+          aria-describedby="basic-addon1">
+      </div>
+
+      <div class="center">
+        <button type="button" class="btn btn-primary center" onclick="list()">주문하기</button>
+
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</body>
+
+</html>
