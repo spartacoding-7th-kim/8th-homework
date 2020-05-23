@@ -23,33 +23,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script>
-        function submit_data(){
-
-            // name, part, weight, address, number 각 id val 받고 하나라도 ''면 입력 alert 띄우기
-            for(let i=1; i<=4; i++){
-                console.log('#'+i+'input');
-                if($('#'+i+'input').val() == ''){
+        function submit_data() {
+            for (let i = 1; i <= 4; i++) {
+                console.log('#' + i + 'input');
+                if ($('#' + i + 'input').val() == '') {
                     alert('빈칸이 있어요');
                     break;
                 }
             }
-
-            $(document).ready(function () {
-                $.ajax({
-                    type: "GET",
-                    url: "https://api.manana.kr/exchange/rate.json",
-                    data: {},
-                    success: function (response) {
-                        console.log(response);
-                        let dollor = response[1]["rate"];
-                        let dollor_html = `<p style=color:blue>달러-원 환율 : ${dollor}</p>`;
-                        $('#exchange').empty();
-                        $('#exchange').append(dollor_html);
-                    }
-                });
-            })
-
         }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    console.log(response);
+                    let dollor = response[1]["rate"];
+                    let dollor_html = `<p style=color:blue>달러-원 환율 : ${dollor}</p>`;
+                    $('#exchange').empty();
+                    $('#exchange').append(dollor_html);
+                }
+            });
+        })
     </script>
 
     <title>8기 2주차 숙제 - 이동준</title>
@@ -139,7 +136,7 @@
             </div>
             <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
         </div>
-        
+
         <button class="btn btn-sm btn-primary btn-block" type="submit" onclick="submit_data()">주문하기</button>
     </div>
 
