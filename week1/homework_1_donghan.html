@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1주차 과제 김동한(8기)</title>
+    <title>1주차 과제 김동한(8기)(수정1)</title>
 
+    <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!--폰트-->
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
     
     
-    <style>
+  <style>
         
         *{
             font-family: 'Nanum Gothic Coding', monospace;
@@ -28,17 +31,64 @@
             text-align: center;
         }
 
-        .form-group{
-            text-align: center;
+        #won{
+          color: slateblue;
         }
         
 
 
     </style>
+
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+
+
     <script>
-        function order_alert()
-        {
-            alert("주문이 완료되었습니다.");
+      $.ajax({
+        type: "GET",
+        url: "https://api.manana.kr/exchange/rate.json",
+        data: "",
+        success: function (response) {
+            for(let i=0; i<response.length; i++)
+            {
+              if(response[i]['name'] == 'USDKRW=X'){
+                $('#exchange').text(response[i]['rate']);
+                return
+              }
+            }
+          
+        }
+      });
+    </script>
+
+    <script>
+        function order_alert(){
+          let name = $('#order_name').val()
+          let phone = $('#order_phone').val()
+          let period = $('#order_period').val()  
+
+
+          if(name=='')
+          {
+            alert("이름을 입력해주세요.")
+            return
+          }
+          else if(phone=='')
+          {
+            alert("전화번호를 입력해주세요.")
+            return
+          }
+          else if(period=='')
+          {
+              alert("기간을 설정해주세요.");
+              return
+          }
+          else
+          {
+            alert("주문이 완료되었습니다.")
+            return
+          }
         }
     </script>
 </head>
@@ -53,38 +103,42 @@
        이 모든 것을 유튜브 프리미엄으로 즐겨보세요.</p>
 </div>
 
-<div class="order_part">
   <p>합리적인 가격 8,690원/월(VAT포함)</p>
+  <p id="won">달러-원 환율: 
+  <span id="exchange"></span>
+  </p>
 
-  <form>
-    <div class="form-group">
-      <label for="exampleFormControlInput1">유튜브 계정</label>
-      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-    </div>
+    
 
-    <div class="form-group">
-        <label for="exampleFormControlInput2">전화번호</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="'-'없이 작성">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">유튜브 계정</span>
+        </div>
+        <input type="text" class="form-control" id="order_name" placeholder="Username@example.com" aria-describedby="basic-addon1">
       </div>
 
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">기간</label>
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>1개월(무료체험)</option>
-        <option>2개월</option>
-        <option>3개월</option>
-        <option>6개월</option>
-        <option>1년</option>
-      </select>
-    </div>
-    
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">전화번호</span>
+        </div>
+        <input type="text" class="form-control" placeholder="'-'없이 기재" id="order_phone" aria-describedby="basic-addon1">
+      </div>
    
-  </form>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">기간</label>
+        </div>
+        <select class="custom-select" id="order_period">
+          <option selected value>구독기간 설정</option>
+          <option value="1">1개월</option>
+          <option value="2">3개월</option>
+          <option value="3">6개월</option>
+        </select>
+      </div>
+ 
   <p>
   <button onclick="order_alert()" type="button" class="btn btn-primary">주문하기</button>
   </p>
-</div>
 
-    
 </body>
 </html>
