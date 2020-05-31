@@ -9,10 +9,8 @@ soup = BeautifulSoup(data.text, 'html.parser')
 songs = soup.select('#body-content > div.newest-list > div > table > tbody > tr')
 
 for song in songs:
-    a_title_tag = song.select_one('td.info > a.title.ellipsis')
-    a_artist_tag = song.select_one('td.info > a.artist.ellipsis')
-    if a_title_tag is not None:
-        rank = song.select_one('td.number').contents[0].strip()
-        title = a_title_tag.text.strip()
-        artist = a_artist_tag.text.strip()
-        print(rank, title, artist)
+    print(type(song.select_one('td.number')))
+    rank = song.select_one('td.number').contents[0].strip() #contents는 파이썬의 내장 함수로, split()으로 빈칸 기준으로 나눠서 요소룰 구분해준다.
+    title = song.select_one('td.info > a.title.ellipsis').text.strip()
+    artist = song.select_one('td.info > a.artist.ellipsis').text.strip()
+    print(rank, title, artist)
