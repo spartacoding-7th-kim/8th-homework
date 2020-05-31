@@ -12,7 +12,7 @@ for song in songs:
     a_title_tag = song.select_one('td.info > a.title.ellipsis')
     a_artist_tag = song.select_one('td.info > a.artist.ellipsis')
     if a_title_tag is not None:
-        rank = song.select_one('td.number').text.split()[0]
+        rank = song.select_one('td.number').contents[0].strip()
         title = a_title_tag.text.strip()
         artist = a_artist_tag.text.strip()
         print(rank, title, artist)
