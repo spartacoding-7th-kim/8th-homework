@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>8기 1주차 숙제 - 이동준</title>
+    <style>
+        .wrap {
+            width: 600px;
+            margin: auto;
+            border: 2px solid black;
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .pic {
+            width: 500px;
+            height: 300px;
+            margin: auto;
+            background-image: url('https://scontent-gmp1-1.xx.fbcdn.net/v/t1.0-9/1175117_538466236224732_1356818541_n.jpg?_nc_cat=104&_nc_sid=e007fa&_nc_oc=AQni-WxSl6tUzyh02eCiwEJHPQ3-OOBtD3F3t-Nj1bia4TtnIVZqI3HveAyPQgrN-7c&_nc_ht=scontent-gmp1-1.xx&oh=0e03fa0de0c0311b12412f782c909ef3&oe=5EDEAAB9');
+            background-position: bottom;
+            background-size: cover;
+            border-radius: 10px;
+        }
+
+        * {
+            font-family: 'Poor Story', cursive;
+        }
+
+        .smttl {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: red;
+        }
+    </style>
+
+    <script>
+        function make_order() {
+            let name = $('#name').val();
+            let weight = $('#weight').val();
+            let address = $('#address').val();
+            let number = $('#number').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/order",
+                data: { name_give: name, weight_give: weight, address_give: address, number_give: number },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('주문 완료')
+                        window.location.reload();
+                    }
+                    else {
+                        alert('뭔가 잘못됐어요')
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function (response) {
+                    let orders = response['orders'];
+
+                    for (let i = 0; i < orders.length; i++) {
+                        let queue = i + 1;
+                        let list_html = `<tr>
+                                            <th scope="row">${queue}</th>
+                                            <td>${orders[i]['name']}</td>
+                                            <td>${orders[i]['weight']}</td>
+                                            <td>${orders[i]['address']}</td>
+                                            <td>${orders[i]['number']}</td>
+                                        </tr>`;
+                        $('#order_table').append(list_html);
+                    }
+
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="pic"></div>
+        <div>
+            <h3 class=smttl>친구 팝니다 <span style="font-size: small;">가격: 싯가 / kg</span></h3>
+            <h6>요즘 <a href="#">살이 많이 쪄서</a> 부위별 소량 판매합니다. 롤을 잘하고 검정색 옷을 좋아합니다.</h6>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">사는 사람</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                id="name">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">주문 내용</span>
+            </div>
+            <input type="text" class="form-control" id="weight" placeholder="무게(kg)" aria-label="무게(kg)"
+                aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">주소</span>
+            </div>
+            <input type="text" class="form-control" id="address" aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">전화번호</span>
+            </div>
+            <input type="text" class="form-control" id="number" aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <!-- 주문버튼(가운데, Bootstrap 찾기, onclick alert 띄우기) -->
+        <button class="btn btn-sm btn-primary btn-block" type="submit" onclick=make_order()>주문하기</button>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">주문무게</th>
+                    <th scope="col">사는곳</th>
+                    <th scope="col">번호</th>
+                </tr>
+            </thead>
+            <tbody id="order_table">
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
